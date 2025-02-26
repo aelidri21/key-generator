@@ -1,0 +1,17 @@
+# Build output
+target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Mac OS
+.DS_Store
+
+# Log files
+*.log
