@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Générateur de clés</title>
+</head>
+<body>
+<h1>Générateur de clés</h1>
+
+<form action="/" method="post">
+    <label for="type">Choisissez le type :</label>
+    <select id="type" name="type">
+        <option value="codeSecret">Code Secret</option>
+        <option value="iban">IBAN</option>
+        <option value="carteIdentite">Carte d'identité</option>
+    </select>
+    <button type="submit">Générer</button>
+</form>
+
+<div th:if="${generatedValue != null}">
+    <h2>Résultat :</h2>
+    <p th:text="${generatedValue}"></p>
+</div>
+</body>
+</html>
