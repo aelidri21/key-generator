@@ -6,53 +6,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Random;
-
 @Controller
 public class GeneratorController {
 
     @GetMapping("/")
     public String showForm() {
-        return "index";
+        return "index"; // correspond à templates/index.html
     }
 
     @PostMapping("/")
-    public String generate(
-            @RequestParam("type") String type,
-            Model model
-    ) {
-        String generatedValue;
-
+    public String generate(@RequestParam("type") String type, Model model) {
+        // Exemple simple : en fonction de type, on génère une chaîne
+        String result;
         switch (type) {
             case "codeSecret":
-                generatedValue = generateSecretCode();
+                result = "CodeSecret-" + (int)(Math.random() * 1_000_000);
                 break;
             case "iban":
-                generatedValue = generateIban();
-                break;
-            case "carteIdentite":
-                generatedValue = generateCarteIdentite();
+                result = "IBAN-FR-" + (int)(Math.random() * 10_000_000);
                 break;
             default:
-                generatedValue = "Type inconnu";
+                result = "Type inconnu";
         }
-
-        model.addAttribute("generatedValue", generatedValue);
+        model.addAttribute("generatedValue", result);
         return "index";
-    }
-
-    private String generateSecretCode() {
-        int code = 100000 + new Random().nextInt(900000);
-        return "CodeSecret-" + code;
-    }
-
-    private String generateIban() {
-        long part = 100000000L + (long)(new Random().nextInt(900000000));
-        return "FR76 " + part;
-    }
-
-    private String generateCarteIdentite() {
-        long num = 100000L + new Random().nextInt(900000);
-        return "ID-" + num;
     }
 }
