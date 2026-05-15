@@ -17,10 +17,15 @@ form {
     margin: 0 auto;
 }
 
-label, select, button {
+label, select, input, button {
     display: block;
     width: 100%;
     margin-bottom: 10px;
+}
+
+input, select {
+    box-sizing: border-box;
+    padding: 8px;
 }
 
 fieldset {
@@ -64,6 +69,11 @@ button:hover {
 .error {
     color: #b00020;
     font-weight: bold;
+    margin: 20px auto 0;
+    max-width: 400px;
+}
+
+.result {
     margin: 20px auto 0;
     max-width: 400px;
 }

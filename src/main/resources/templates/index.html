@@ -12,10 +12,14 @@
     <label for="type">Choisissez ce que vous voulez générer :</label>
     <select id="type" name="type">
         <option value="codeSecret" th:selected="${selectedType == 'codeSecret'}">Code secret</option>
-        <option value="iban" th:selected="${selectedType == 'iban'}">IBAN</option>
+        <option value="pin" th:selected="${selectedType == 'pin'}">Code PIN</option>
+        <option value="uuid" th:selected="${selectedType == 'uuid'}">UUID</option>
+        <option value="apiToken" th:selected="${selectedType == 'apiToken'}">Token API</option>
+        <option value="hexKey" th:selected="${selectedType == 'hexKey'}">Clé hexadécimale</option>
+        <option value="iban" th:selected="${selectedType == 'iban'}">IBAN / RIB</option>
     </select>
 
-    <fieldset>
+    <fieldset class="generator-options" data-generator-options="codeSecret">
         <legend>Options du code secret</legend>
 
         <label for="length">Longueur :</label>
@@ -44,15 +48,64 @@
         </label>
     </fieldset>
 
+    <fieldset class="generator-options" data-generator-options="pin">
+        <legend>Options du PIN</legend>
+
+        <label for="pinLength">Longueur :</label>
+        <select id="pinLength" name="pinLength">
+            <option value="4" th:selected="${selectedPinLength == 4}">4 chiffres</option>
+            <option value="6" th:selected="${selectedPinLength == 6}">6 chiffres</option>
+            <option value="8" th:selected="${selectedPinLength == 8}">8 chiffres</option>
+        </select>
+    </fieldset>
+
+    <fieldset class="generator-options" data-generator-options="apiToken">
+        <legend>Options du token API</legend>
+
+        <label for="tokenPrefix">Préfixe :</label>
+        <input id="tokenPrefix" name="tokenPrefix" maxlength="12" th:value="${tokenPrefix}" />
+
+        <label for="tokenLength">Longueur :</label>
+        <select id="tokenLength" name="tokenLength">
+            <option value="32" th:selected="${selectedTokenLength == 32}">32 caractères</option>
+            <option value="48" th:selected="${selectedTokenLength == 48}">48 caractères</option>
+            <option value="64" th:selected="${selectedTokenLength == 64}">64 caractères</option>
+        </select>
+    </fieldset>
+
+    <fieldset class="generator-options" data-generator-options="hexKey">
+        <legend>Options de la clé hexadécimale</legend>
+
+        <label for="hexLength">Longueur :</label>
+        <select id="hexLength" name="hexLength">
+            <option value="32" th:selected="${selectedHexLength == 32}">32 caractères</option>
+            <option value="48" th:selected="${selectedHexLength == 48}">48 caractères</option>
+            <option value="64" th:selected="${selectedHexLength == 64}">64 caractères</option>
+        </select>
+    </fieldset>
+
     <button type="submit">Générer</button>
 </form>
 
 <div class="error" th:if="${error != null}" th:text="${error}"></div>
 
-<div th:if="${generatedValue != null}">
+<div class="result" th:if="${generatedValue != null}">
     <h3>Résultat :</h3>
     <p th:text="${generatedValue}"></p>
 </div>
 
+<script>
+    const typeSelect = document.getElementById("type");
+    const optionGroups = document.querySelectorAll("[data-generator-options]");
+
+    function updateVisibleOptions() {
+        optionGroups.forEach((group) => {
+            group.hidden = group.dataset.generatorOptions !== typeSelect.value;
+        });
+    }
+
+    typeSelect.addEventListener("change", updateVisibleOptions);
+    updateVisibleOptions();
+</script>
 </body>
 </html>
