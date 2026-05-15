@@ -6,7 +6,7 @@
     <title>Key Generator</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
-<body>
+<body th:class="'theme-' + ${selectedType}">
 <main class="app-shell">
     <header class="app-header">
         <div>
@@ -145,6 +145,14 @@
     const typeInputs = document.querySelectorAll("input[name='type']");
     const optionGroups = document.querySelectorAll("[data-generator-options]");
     const copyButton = document.querySelector("[data-copy-target]");
+    const themeClasses = [
+        "theme-codeSecret",
+        "theme-pin",
+        "theme-uuid",
+        "theme-apiToken",
+        "theme-hexKey",
+        "theme-iban"
+    ];
 
     function selectedType() {
         return document.querySelector("input[name='type']:checked")?.value;
@@ -156,8 +164,17 @@
         });
     }
 
-    typeInputs.forEach((input) => input.addEventListener("change", updateVisibleOptions));
+    function updateTheme() {
+        document.body.classList.remove(...themeClasses);
+        document.body.classList.add(`theme-${selectedType()}`);
+    }
+
+    typeInputs.forEach((input) => input.addEventListener("change", () => {
+        updateVisibleOptions();
+        updateTheme();
+    }));
     updateVisibleOptions();
+    updateTheme();
 
     copyButton?.addEventListener("click", async () => {
         const target = document.getElementById(copyButton.dataset.copyTarget);

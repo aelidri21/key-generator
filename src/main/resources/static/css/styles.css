@@ -8,6 +8,7 @@
     --muted: #697586;
     --accent: #1463ff;
     --accent-dark: #0f4dcc;
+    --accent-soft: #eaf1ff;
     --danger: #b42318;
     --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
 }
@@ -21,6 +22,49 @@ body {
     color: var(--text);
     font-family: Inter, Arial, sans-serif;
     margin: 0;
+    transition: background-color 180ms ease;
+}
+
+.theme-codeSecret {
+    --background: #f5f7fb;
+    --accent: #1463ff;
+    --accent-dark: #0f4dcc;
+    --accent-soft: #eaf1ff;
+}
+
+.theme-pin {
+    --background: #fff1f2;
+    --accent: #e11d48;
+    --accent-dark: #be123c;
+    --accent-soft: #ffe4e6;
+}
+
+.theme-uuid {
+    --background: #f3e8ff;
+    --accent: #7e22ce;
+    --accent-dark: #6b21a8;
+    --accent-soft: #f3e8ff;
+}
+
+.theme-apiToken {
+    --background: #fff7ed;
+    --accent: #ea580c;
+    --accent-dark: #c2410c;
+    --accent-soft: #ffedd5;
+}
+
+.theme-hexKey {
+    --background: #ecfeff;
+    --accent: #0891b2;
+    --accent-dark: #0e7490;
+    --accent-soft: #cffafe;
+}
+
+.theme-iban {
+    --background: #ecfdf3;
+    --accent: #16a34a;
+    --accent-dark: #15803d;
+    --accent-soft: #dcfce7;
 }
 
 button, input, select {
@@ -118,7 +162,7 @@ h1 {
 }
 
 .type-option input:checked + span {
-    background: #eaf1ff;
+    background: var(--accent-soft);
     border-color: var(--accent);
     color: var(--accent-dark);
 }
