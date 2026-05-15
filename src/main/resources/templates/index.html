@@ -1,111 +1,172 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Key Generator</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-<h1>Key Generator</h1>
+<main class="app-shell">
+    <header class="app-header">
+        <div>
+            <p class="eyebrow">Générateur local</p>
+            <h1>Key Generator</h1>
+        </div>
+    </header>
 
-<form action="/" method="post">
-    <label for="type">Choisissez ce que vous voulez générer :</label>
-    <select id="type" name="type">
-        <option value="codeSecret" th:selected="${selectedType == 'codeSecret'}">Code secret</option>
-        <option value="pin" th:selected="${selectedType == 'pin'}">Code PIN</option>
-        <option value="uuid" th:selected="${selectedType == 'uuid'}">UUID</option>
-        <option value="apiToken" th:selected="${selectedType == 'apiToken'}">Token API</option>
-        <option value="hexKey" th:selected="${selectedType == 'hexKey'}">Clé hexadécimale</option>
-        <option value="iban" th:selected="${selectedType == 'iban'}">IBAN / RIB</option>
-    </select>
+    <section class="workspace">
+        <form class="generator-panel" action="/" method="post">
+            <div class="section-heading">
+                <span>Type</span>
+            </div>
 
-    <fieldset class="generator-options" data-generator-options="codeSecret">
-        <legend>Options du code secret</legend>
+            <div class="type-grid" id="type">
+                <label class="type-option">
+                    <input type="radio" name="type" value="codeSecret" th:checked="${selectedType == 'codeSecret'}" />
+                    <span>Code secret</span>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="type" value="pin" th:checked="${selectedType == 'pin'}" />
+                    <span>PIN</span>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="type" value="uuid" th:checked="${selectedType == 'uuid'}" />
+                    <span>UUID</span>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="type" value="apiToken" th:checked="${selectedType == 'apiToken'}" />
+                    <span>Token API</span>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="type" value="hexKey" th:checked="${selectedType == 'hexKey'}" />
+                    <span>Clé hexa</span>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="type" value="iban" th:checked="${selectedType == 'iban'}" />
+                    <span>IBAN / RIB</span>
+                </label>
+            </div>
 
-        <label for="length">Longueur :</label>
-        <select id="length" name="length">
-            <option value="16" th:selected="${selectedLength == 16}">16 caractères</option>
-            <option value="32" th:selected="${selectedLength == 32}">32 caractères</option>
-            <option value="48" th:selected="${selectedLength == 48}">48 caractères</option>
-            <option value="64" th:selected="${selectedLength == 64}">64 caractères</option>
-        </select>
+            <div class="section-heading">
+                <span>Options</span>
+            </div>
 
-        <label class="checkbox-option">
-            <input type="checkbox" name="lowercase" value="true" th:checked="${lowercase}" />
-            Lettres minuscules
-        </label>
-        <label class="checkbox-option">
-            <input type="checkbox" name="uppercase" value="true" th:checked="${uppercase}" />
-            Lettres majuscules
-        </label>
-        <label class="checkbox-option">
-            <input type="checkbox" name="digits" value="true" th:checked="${digits}" />
-            Chiffres
-        </label>
-        <label class="checkbox-option">
-            <input type="checkbox" name="specialCharacters" value="true" th:checked="${specialCharacters}" />
-            Caractères spéciaux
-        </label>
-    </fieldset>
+            <fieldset class="generator-options" data-generator-options="codeSecret">
+                <label for="length">Longueur</label>
+                <select id="length" name="length">
+                    <option value="16" th:selected="${selectedLength == 16}">16 caractères</option>
+                    <option value="32" th:selected="${selectedLength == 32}">32 caractères</option>
+                    <option value="48" th:selected="${selectedLength == 48}">48 caractères</option>
+                    <option value="64" th:selected="${selectedLength == 64}">64 caractères</option>
+                </select>
 
-    <fieldset class="generator-options" data-generator-options="pin">
-        <legend>Options du PIN</legend>
+                <div class="checkbox-grid">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="lowercase" value="true" th:checked="${lowercase}" />
+                        <span>Minuscules</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uppercase" value="true" th:checked="${uppercase}" />
+                        <span>Majuscules</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="digits" value="true" th:checked="${digits}" />
+                        <span>Chiffres</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="specialCharacters" value="true" th:checked="${specialCharacters}" />
+                        <span>Spéciaux</span>
+                    </label>
+                </div>
+            </fieldset>
 
-        <label for="pinLength">Longueur :</label>
-        <select id="pinLength" name="pinLength">
-            <option value="4" th:selected="${selectedPinLength == 4}">4 chiffres</option>
-            <option value="6" th:selected="${selectedPinLength == 6}">6 chiffres</option>
-            <option value="8" th:selected="${selectedPinLength == 8}">8 chiffres</option>
-        </select>
-    </fieldset>
+            <fieldset class="generator-options" data-generator-options="pin">
+                <label for="pinLength">Longueur</label>
+                <select id="pinLength" name="pinLength">
+                    <option value="4" th:selected="${selectedPinLength == 4}">4 chiffres</option>
+                    <option value="6" th:selected="${selectedPinLength == 6}">6 chiffres</option>
+                    <option value="8" th:selected="${selectedPinLength == 8}">8 chiffres</option>
+                </select>
+            </fieldset>
 
-    <fieldset class="generator-options" data-generator-options="apiToken">
-        <legend>Options du token API</legend>
+            <fieldset class="generator-options" data-generator-options="apiToken">
+                <label for="tokenPrefix">Préfixe</label>
+                <input id="tokenPrefix" name="tokenPrefix" maxlength="12" th:value="${tokenPrefix}" />
 
-        <label for="tokenPrefix">Préfixe :</label>
-        <input id="tokenPrefix" name="tokenPrefix" maxlength="12" th:value="${tokenPrefix}" />
+                <label for="tokenLength">Longueur</label>
+                <select id="tokenLength" name="tokenLength">
+                    <option value="32" th:selected="${selectedTokenLength == 32}">32 caractères</option>
+                    <option value="48" th:selected="${selectedTokenLength == 48}">48 caractères</option>
+                    <option value="64" th:selected="${selectedTokenLength == 64}">64 caractères</option>
+                </select>
+            </fieldset>
 
-        <label for="tokenLength">Longueur :</label>
-        <select id="tokenLength" name="tokenLength">
-            <option value="32" th:selected="${selectedTokenLength == 32}">32 caractères</option>
-            <option value="48" th:selected="${selectedTokenLength == 48}">48 caractères</option>
-            <option value="64" th:selected="${selectedTokenLength == 64}">64 caractères</option>
-        </select>
-    </fieldset>
+            <fieldset class="generator-options" data-generator-options="hexKey">
+                <label for="hexLength">Longueur</label>
+                <select id="hexLength" name="hexLength">
+                    <option value="32" th:selected="${selectedHexLength == 32}">32 caractères</option>
+                    <option value="48" th:selected="${selectedHexLength == 48}">48 caractères</option>
+                    <option value="64" th:selected="${selectedHexLength == 64}">64 caractères</option>
+                </select>
+            </fieldset>
 
-    <fieldset class="generator-options" data-generator-options="hexKey">
-        <legend>Options de la clé hexadécimale</legend>
+            <fieldset class="generator-options empty-options" data-generator-options="uuid">
+                <p>Prêt</p>
+            </fieldset>
 
-        <label for="hexLength">Longueur :</label>
-        <select id="hexLength" name="hexLength">
-            <option value="32" th:selected="${selectedHexLength == 32}">32 caractères</option>
-            <option value="48" th:selected="${selectedHexLength == 48}">48 caractères</option>
-            <option value="64" th:selected="${selectedHexLength == 64}">64 caractères</option>
-        </select>
-    </fieldset>
+            <fieldset class="generator-options empty-options" data-generator-options="iban">
+                <p>Prêt</p>
+            </fieldset>
 
-    <button type="submit">Générer</button>
-</form>
+            <button class="primary-action" type="submit">Générer</button>
+        </form>
 
-<div class="error" th:if="${error != null}" th:text="${error}"></div>
+        <aside class="result-panel">
+            <div class="section-heading">
+                <span>Résultat</span>
+            </div>
 
-<div class="result" th:if="${generatedValue != null}">
-    <h3>Résultat :</h3>
-    <p th:text="${generatedValue}"></p>
-</div>
+            <div class="error" th:if="${error != null}" th:text="${error}"></div>
+
+            <div class="result-box" th:if="${generatedValue != null}">
+                <output id="generated-value" th:text="${generatedValue}"></output>
+                <button class="copy-action" type="button" data-copy-target="generated-value">Copier</button>
+            </div>
+
+            <div class="empty-result" th:unless="${generatedValue != null}">
+                <span>Aucun résultat généré</span>
+            </div>
+        </aside>
+    </section>
+</main>
 
 <script>
-    const typeSelect = document.getElementById("type");
+    const typeInputs = document.querySelectorAll("input[name='type']");
     const optionGroups = document.querySelectorAll("[data-generator-options]");
+    const copyButton = document.querySelector("[data-copy-target]");
+
+    function selectedType() {
+        return document.querySelector("input[name='type']:checked")?.value;
+    }
 
     function updateVisibleOptions() {
         optionGroups.forEach((group) => {
-            group.hidden = group.dataset.generatorOptions !== typeSelect.value;
+            group.hidden = group.dataset.generatorOptions !== selectedType();
         });
     }
 
-    typeSelect.addEventListener("change", updateVisibleOptions);
+    typeInputs.forEach((input) => input.addEventListener("change", updateVisibleOptions));
     updateVisibleOptions();
+
+    copyButton?.addEventListener("click", async () => {
+        const target = document.getElementById(copyButton.dataset.copyTarget);
+        await navigator.clipboard.writeText(target.textContent.trim());
+        copyButton.textContent = "Copié";
+        setTimeout(() => {
+            copyButton.textContent = "Copier";
+        }, 1400);
+    });
 </script>
 </body>
 </html>
