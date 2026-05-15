@@ -11,11 +11,43 @@
 <form action="/" method="post">
     <label for="type">Choisissez ce que vous voulez générer :</label>
     <select id="type" name="type">
-        <option value="codeSecret">Code secret</option>
-        <option value="iban">IBAN</option>
+        <option value="codeSecret" th:selected="${selectedType == 'codeSecret'}">Code secret</option>
+        <option value="iban" th:selected="${selectedType == 'iban'}">IBAN</option>
     </select>
+
+    <fieldset>
+        <legend>Options du code secret</legend>
+
+        <label for="length">Longueur :</label>
+        <select id="length" name="length">
+            <option value="16" th:selected="${selectedLength == 16}">16 caractères</option>
+            <option value="32" th:selected="${selectedLength == 32}">32 caractères</option>
+            <option value="48" th:selected="${selectedLength == 48}">48 caractères</option>
+            <option value="64" th:selected="${selectedLength == 64}">64 caractères</option>
+        </select>
+
+        <label class="checkbox-option">
+            <input type="checkbox" name="lowercase" value="true" th:checked="${lowercase}" />
+            Lettres minuscules
+        </label>
+        <label class="checkbox-option">
+            <input type="checkbox" name="uppercase" value="true" th:checked="${uppercase}" />
+            Lettres majuscules
+        </label>
+        <label class="checkbox-option">
+            <input type="checkbox" name="digits" value="true" th:checked="${digits}" />
+            Chiffres
+        </label>
+        <label class="checkbox-option">
+            <input type="checkbox" name="specialCharacters" value="true" th:checked="${specialCharacters}" />
+            Caractères spéciaux
+        </label>
+    </fieldset>
+
     <button type="submit">Générer</button>
 </form>
+
+<div class="error" th:if="${error != null}" th:text="${error}"></div>
 
 <div th:if="${generatedValue != null}">
     <h3>Résultat :</h3>

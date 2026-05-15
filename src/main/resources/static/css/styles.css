@@ -23,6 +23,31 @@ label, select, button {
     margin-bottom: 10px;
 }
 
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 0 0 16px;
+    padding: 12px;
+}
+
+legend {
+    color: #333;
+    font-weight: bold;
+    padding: 0 6px;
+}
+
+.checkbox-option {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.checkbox-option input {
+    margin: 0;
+    width: auto;
+}
+
 button {
     padding: 10px;
     background-color: #007BFF;
@@ -34,4 +59,11 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+.error {
+    color: #b00020;
+    font-weight: bold;
+    margin: 20px auto 0;
+    max-width: 400px;
 }
