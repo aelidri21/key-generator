@@ -11,12 +11,11 @@ public class GeneratorController {
 
     @GetMapping("/")
     public String showForm() {
-        return "index"; // correspond à templates/index.html
+        return "index";
     }
 
     @PostMapping("/")
     public String generate(@RequestParam("type") String type, Model model) {
-        // Exemple simple : en fonction de type, on génère une chaîne
         String result;
         switch (type) {
             case "codeSecret":
